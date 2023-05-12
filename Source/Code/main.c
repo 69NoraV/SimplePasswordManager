@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 
 int addpass();
 
@@ -33,16 +34,20 @@ int main(void) {
 }
 // Access to a file with the password and add a raw with the name and the password itself
 int addpass(void) {
+  char pos[] = "Passwords//";
+  char filename[100];
+  printf("What's the name of the password: ");
+  scanf("%s", filename);
+  char filepos[100];
+  strcpy(filepos,pos);
+  strcat(filepos,filename);
   FILE *fptr;
-  fptr = fopen("passwords.txt", "w");
-  if (fptr == NULL) {
-    printf("Error");
-    exit(1);
-  }
-  char passname[100];
-  printf("Enter the name of the password: ");
-  scanf("%s", passname);
-  fprintf(fptr, "%s", passname);
+  fptr = fopen(filepos, "w");
+  printf("\nWrite the password for %s", filename);
+  char pass[100];
+  scanf(" %s", pass);
+  fprintf(fptr, "%s",pass);
   fclose(fptr);
+  printf("Password added successfully");
 }
 
