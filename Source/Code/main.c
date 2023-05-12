@@ -33,7 +33,16 @@ int main(void) {
 }
 // Access to a file with the password and add a raw with the name and the password itself
 int addpass(void) {
-  system("clear");
-  
+  FILE *fptr;
+  fptr = fopen("passwords.txt", "w");
+  if (fptr == NULL) {
+    printf("Error");
+    exit(1);
+  }
+  char passname[100];
+  printf("Enter the name of the password: ");
+  scanf("%s", passname);
+  fprintf(fptr, "%s", passname);
+  fclose(fptr);
 }
 
