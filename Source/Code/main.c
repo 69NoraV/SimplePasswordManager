@@ -3,28 +3,32 @@
 #include <stdbool.h>
 #include <string.h>
 
-int addpass();
+void addpass();
+void copypass();
 
 int main(void) {
   bool loop=true;
-  // Main loop
+  // Main loop.
   while(loop) {
     int selection;
-    // Main menu
+    // Main menu.
     printf("What you wanna do\n"
            "1 - Add Password\n"
-           "2 - Search an exsisting password\n"
-           "3 - Delete Password\n"
+           "2 - Copy an exsisting password\n"
+           "3 - Edit exsisting password\n"
+           "4 - Delete Password\n"
            "0 - Exit\n");
     scanf("%d", &selection);
     system("clear");
     // Switch selection
     switch(selection) {
         case 1:
-            addpass(); // Call add password 
+            addpass(); // Call add password.
             break;
+        case 2:
+
         case 0:
-            loop = false; // Exit the main loop
+            loop = false; // Exit the main loop.
             break;
         default:
             break;
@@ -32,8 +36,8 @@ int main(void) {
   }
   
 }
-// Access to a file with the password and add a raw with the name and the password itself
-int addpass(void) {
+// Access to a file with the password and add a raw with the name and the password itself.
+void addpass() {
   char pos[] = "Passwords//";
   char filename[100];
   printf("What's the name of the password: ");
@@ -43,11 +47,19 @@ int addpass(void) {
   strcat(filepos,filename);
   FILE *fptr;
   fptr = fopen(filepos, "w");
-  printf("\nWrite the password for %s", filename);
   char pass[100];
+  char t[100];
+  printf("\nWrite the password for %s: ", filename);
   scanf(" %s", pass);
+  printf("\nConfirm your password: ");
+  scanf(" %s", t);
   fprintf(fptr, "%s",pass);
   fclose(fptr);
-  printf("Password added successfully");
+  system("clear");
+}
+// Print all the names of saved password and let the user select the password
+// they wanna copy.
+void copypass() {
+
 }
 
