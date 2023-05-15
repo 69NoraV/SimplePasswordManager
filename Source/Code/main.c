@@ -26,7 +26,8 @@ int main(void) {
             addpass(); // Call add password.
             break;
         case 2:
-
+            copypass();
+            break;
         case 0:
             loop = false; // Exit the main loop.
             break;
@@ -60,6 +61,18 @@ void addpass() {
 // Print all the names of saved password and let the user select the password
 // they wanna copy.
 void copypass() {
-
+  char pos[] = "Passwords//";
+  FILE *fptr;
+  printf("\nPassword to copy: ");
+  char name[100];
+  scanf(" %s", name);
+  strcat(pos, name);
+  fptr = fopen(pos, "r");
+  char copy[100];
+  fgets(copy,100,fptr);
+  printf("\nHere is your password:\n%s\nPress enter to continue", copy);
+  char temp;
+  scanf(" %c", &temp);
+  system("clear");
 }
 
