@@ -1,3 +1,5 @@
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
@@ -10,6 +12,11 @@ void editpass();
 void deletepass();
 
 int main(void) {
+  struct stat st = {0};
+
+  if (stat("Passwords//", &st) == -1) {
+    mkdir("Passwords//", 0700);
+  }
   bool loop=true;
   // Main loop.
   while(loop) {
