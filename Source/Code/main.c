@@ -2,9 +2,12 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
+#include <dirent.h>
 
 void addpass();
 void copypass();
+void editpass();
+void deletepass();
 
 int main(void) {
   bool loop=true;
@@ -27,6 +30,12 @@ int main(void) {
             break;
         case 2:
             copypass();
+            break;
+        case 3:
+            editpass();
+            break;
+        case 4:
+            deletepass();
             break;
         case 0:
             loop = false; // Exit the main loop.
@@ -52,8 +61,6 @@ void addpass() {
   char t[100];
   printf("\nWrite the password for %s: ", filename);
   scanf(" %s", pass);
-  printf("\nConfirm your password: ");
-  scanf(" %s", t);
   fprintf(fptr, "%s",pass);
   fclose(fptr);
   system("clear");
@@ -72,7 +79,48 @@ void copypass() {
   fgets(copy,100,fptr);
   printf("\nHere is your password:\n%s\nPress enter to continue", copy);
   char temp;
-  scanf(" %c", &temp);
+  scanf("%c", &temp);
+  scanf("%c", &temp);
   system("clear");
 }
 
+void editpass() {
+  char pos[] = "Passwords//";
+  FILE *fptr;
+  printf("\nPassword to edit: ");
+  char name[100];
+  scanf(" %s", name);
+  strcat(pos, name);
+  fptr = fopen(pos, "w");
+  char pass[100];
+  printf("\nWrite the new password: ");
+  scanf(" %s", pass);
+  fprintf(fptr, "%s",pass);
+  fclose(fptr);
+  system("clear");
+}
+
+void deletepass() {
+  char pos[] = "Passwords//";
+  FILE *fptr;
+  printf("\nPassword to delete: ");
+  char name[100];
+  scanf(" %s", name);
+  strcat(pos, name);
+  int ret;
+  ret = remove(pos);
+  if (ret == 0) {
+    printf("\nPassword deleted successfully\n\nPress enter to continue");
+    char temp;
+    scanf("%c", &temp);
+    scanf("%c", &temp);
+    system("clear");
+  }
+  else {
+    printf("\nUnable to delete password, please delete it manually\n\nPress enter to continue");
+    char temp;
+    scanf("%c", &temp);
+    scanf("%c", &temp);
+    system("clear");
+  }
+}
